@@ -4,6 +4,19 @@ $(document).ready(function(){
       return Math.ceil(Math.random() * size);
     }
     
+    var timeLeft = 10;
+    var updateTimeLeft = function (amount) {
+        timeLeft += amount;
+        $('#time-left').text(timeLeft);
+      }
+
+      var interval = setInterval(function () {
+        updateTimeLeft(-1);
+        if (timeLeft === 0) {
+          clearInterval(interval);
+        }
+      }, 1000);
+
     var questionGenerator = function () {
       var question = {};
       var num1 = randomNumberGenerator(10);
@@ -15,12 +28,23 @@ $(document).ready(function(){
       return question;
     }
     
-    currentQuestion = questionGenerator();
-    $('#equation').text(currentQuestion.equation);
+    var renderNewQuestion = function () {
+      currentQuestion = questionGenerator();
+      $('#equation').text(currentQuestion.equation);  
+    }
+    
+    var checkAnswer = function (userInput, answer) {
+        if (userInput === answer) {
+          renderNewQuestion();
+          $('#user-input').val('');
+          updateTimeLeft(+1);
+        }
+      }
+    
+    $('#user-input').on('keyup', function () {
+      checkAnswer(Number($(this).val()), currentQuestion.answer);
+    });
+    
+    renderNewQuestion();
+    
   });
- 
-  $('#user-input').on('keyup', function () {
-    console.log($(this).val());
-  });
-
-
