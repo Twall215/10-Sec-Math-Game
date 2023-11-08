@@ -3,6 +3,7 @@ $(document).ready(function(){
     var interval;
     var timeLeft = 10;
     var score = 0;
+    var highscore = 0;
     
     var updateTimeLeft = function (amount) {
       timeLeft += amount;
@@ -13,18 +14,25 @@ $(document).ready(function(){
       score += amount;
       $('#score').text(score);
     };
+
+    var highScoreCount = function (amount) {
+        highscore += amount;
+      $('#highScore').text(highscore);
+      };
     
     var startGame = function () {
       if (!interval) {
         if (timeLeft === 0) {
           updateTimeLeft(10);
           updateScore(-score);
+          
         }
         interval = setInterval(function () {
           updateTimeLeft(-1);
           if (timeLeft === 0) {
             clearInterval(interval);
             interval = undefined;
+            highScoreCount(score)
           }
         }, 1000);  
       }
@@ -56,6 +64,7 @@ $(document).ready(function(){
         $('#user-input').val('');
         updateTimeLeft(+1);
         updateScore(+1);
+        highScoreCount(+1)
       }
     };
     
