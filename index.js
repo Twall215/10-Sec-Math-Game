@@ -25,14 +25,14 @@ $(document).ready(function(){
         if (timeLeft === 0) {
           updateTimeLeft(10);
           updateScore(-score);
-          
+          highScoreCount(-highscore)
         }
         interval = setInterval(function () {
           updateTimeLeft(-1);
           if (timeLeft === 0) {
             clearInterval(interval);
             interval = undefined;
-            highScoreCount(score)
+            
           }
         }, 1000);  
       }
