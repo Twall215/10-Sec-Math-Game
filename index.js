@@ -13,30 +13,32 @@ $(document).ready(function(){
     var updateScore = function (amount) {
       score += amount;
       $('#score').text(score);
+      updateHighScore(score)
     };
 
-    var highScoreCount = function (amount) {
-        highscore += amount;
-      $('#highScore').text(highscore);
-      };
-    
-    var startGame = function () {
-      if (!interval) {
-        if (timeLeft === 0) {
-          updateTimeLeft(10);
-          updateScore(-score);
-          highScoreCount(-highscore)
-        }
-        interval = setInterval(function () {
-          updateTimeLeft(-1);
-          if (timeLeft === 0) {
-            clearInterval(interval);
-            interval = undefined;
-            
-          }
-        }, 1000);  
+  var updateHighScore = function (score) {
+    if (score > highscore) {
+      highscore = score;
+      $('#highScore').text(score);
+    }
+  };
+
+  var startGame = function () {
+    if (!interval) {
+      if (timeLeft === 0) {
+        updateTimeLeft(10);
+        updateScore(-score);
       }
-    };
+      interval = setInterval(function () {
+        updateTimeLeft(-1);
+        if (timeLeft === 0) {
+          clearInterval(interval);
+          interval = undefined;
+          
+        }
+      }, 1000);  
+    }
+  };
     
     var randomNumberGenerator = function (size) {
       return Math.ceil(Math.random() * size);
