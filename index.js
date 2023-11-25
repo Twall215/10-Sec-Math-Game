@@ -40,42 +40,40 @@ $(document).ready(function(){
     }
   };
   
+  var selectOptions = function(options){
+    options = []
+    $('input.operation_checkbox').each(function () {
+      if (this.checked) {
+        // push the data-operation value into the options array.
+        options.push(input.data-operation)
+      }
+    })
+    return options
+  }
+
   var randomNumberGenerator = function (size) {
     return Math.ceil(Math.random() * size);
   };
   
   var questionGenerator = function () {
     var question = {};
-    var options = []
-    question.generate = function (options){
-      $('input.operation_checkbox').each(function(){
-        if (this.checked){
-          options.push(this)
-        }
-        return options
-      })
-    };
     var num1 = randomNumberGenerator(10);
     var num2 = randomNumberGenerator(10);
-    /*
-      case "+":
-        question.answer = num1 + num2;
-        question.equation = String(num1) + " + " + String(num2);
-        break;
-      case "-":
-        question.answer = num1 > num2 ? num1 - num2 : num2 - num1;
-        question.question = num1 > num2 ? String(num1) + " - " + String(num2) : String(num2) + " - " + String(num1);
-        break;
-      case "*":
-        question.answer = num1 * num2;
-        question.question = String(num1) + " * " + String(num2);
-        break;
-      case "/":
-        question.answer = num2;
-        question.question = String(num1 * num2) + " / " + String(num1);
-        break;
-    */
-    return question.generate;
+    selectOptions()
+    if (selectOptions === "+"){
+      question.answer = num1 + num2;
+      question.equation = String(num1) + " + " + String(num2);
+    }else if (selectOptions === "-"){
+      question.answer = num1 > num2 ? num1 - num2 : num2 - num1;
+      question.question = num1 > num2 ? String(num1) + " - " + String(num2) : String(num2) + " - " + String(num1);
+    }else if (selectOptions === "*"){
+      question.answer = num1 * num2;
+      question.question = String(num1) + " * " + String(num2);
+    }else if (selectOptions === "/"){
+      question.answer = num2;
+      question.question = String(num1 * num2) + " / " + String(num1);
+    }
+    return question;
   };
   
   var renderNewQuestion = function () {
