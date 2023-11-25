@@ -66,7 +66,7 @@ $(document).ready(function(){
         $('#user-input').val('');
         updateTimeLeft(+1);
         updateScore(+1);
-        highScoreCount(+1)
+        
       }
     };
     
