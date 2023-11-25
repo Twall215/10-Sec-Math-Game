@@ -46,33 +46,36 @@ $(document).ready(function(){
   
   var questionGenerator = function () {
     var question = {};
+    var options = []
     question.generate = function (options){
-      if (!options){
-        options = ["plus"]
-      }
+      $('input.operation_checkbox').each(function(){
+        if (this.checked){
+          options.push(this)
+        }
+        return options
+      })
     };
-    var QuestionType = options[randomNumberGenerator(options.length)-1];
     var num1 = randomNumberGenerator(10);
     var num2 = randomNumberGenerator(10);
-    switch (QuestionType) {
-      case "plus":
+    /*
+      case "+":
         question.answer = num1 + num2;
         question.equation = String(num1) + " + " + String(num2);
         break;
-      case "minus":
+      case "-":
         question.answer = num1 > num2 ? num1 - num2 : num2 - num1;
         question.question = num1 > num2 ? String(num1) + " - " + String(num2) : String(num2) + " - " + String(num1);
         break;
-      case "times":
+      case "*":
         question.answer = num1 * num2;
         question.question = String(num1) + " * " + String(num2);
         break;
-      case "divide":
+      case "/":
         question.answer = num2;
         question.question = String(num1 * num2) + " / " + String(num1);
         break;
-    }
-    return question;
+    */
+    return question.generate;
   };
   
   var renderNewQuestion = function () {
