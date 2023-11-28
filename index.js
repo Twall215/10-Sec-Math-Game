@@ -76,7 +76,7 @@ $(document).ready(function(){
     } else if (operator === "*"){
       question.answer = num1 * num2;
       question.equation = String(num1) + " * " + String(num2);
-    } else if (randomOperatorGenerator === "/"){
+    } else if (operator === "/"){
       question.answer = num2;
       question.equation = String(num1 * num2) + " / " + String(num1);
     }
