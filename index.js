@@ -45,7 +45,7 @@ $(document).ready(function(){
     $('input.operation_checkbox').each(function () {
       if (this.checked) {
         // push the data-operation value into the options array.
-        options.push(input.value)
+        options.push($(this).data('operation'));
       }
     })
     return options
@@ -60,25 +60,29 @@ $(document).ready(function(){
     var num1 = randomNumberGenerator(10);
     var num2 = randomNumberGenerator(10);
     var options = selectOptions()
-    
-    var randomOperatorGenerator = function(arr) {
-     arr[(Math.floor(Math.random()*arr.length))]
-    };
-    var operator = options[randomOperatorGenerator];
 
-    if (operator === "plus"){
+    console.log(options);
+
+    var operator = options[Math.floor(Math.random() * options.length)];
+
+    console.log(operator);
+
+    if (operator === "+"){
       question.answer = num1 + num2;
       question.equation = String(num1) + " + " + String(num2);
-    }else if (operator === "minus"){
+    } else if (operator === "-"){
       question.answer = num1 > num2 ? num1 - num2 : num2 - num1;
-      question.question = num1 > num2 ? String(num1) + " - " + String(num2) : String(num2) + " - " + String(num1);
-    }else if (operator === "times"){
+      question.equation = num1 > num2 ? String(num1) + " - " + String(num2) : String(num2) + " - " + String(num1);
+    } else if (operator === "*"){
       question.answer = num1 * num2;
-      question.question = String(num1) + " * " + String(num2);
-    }else if (randomOperatorGenerator === "divide"){
+      question.equation = String(num1) + " * " + String(num2);
+    } else if (randomOperatorGenerator === "/"){
       question.answer = num2;
-      question.question = String(num1 * num2) + " / " + String(num1);
+      question.equation = String(num1 * num2) + " / " + String(num1);
     }
+
+    console.log(question);
+
     return question;
   };
   
