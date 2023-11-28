@@ -64,7 +64,7 @@ $(document).ready(function(){
     var randomOperatorGenerator = function(arr) {
      arr[(Math.floor(Math.random()*arr.length))]
     };
-    var operator = randomOperatorGenerator(options);
+    var operator = options[randomOperatorGenerator];
 
     if (operator === "plus"){
       question.answer = num1 + num2;
